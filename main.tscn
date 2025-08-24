@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://co1kshvc7s143"]
+[gd_scene load_steps=12 format=3 uid="uid://co1kshvc7s143"]
 
 [ext_resource type="Script" uid="uid://d36eemmqy7448" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://txpfbputgstm" path="res://daily_button.png" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://fusv4n40w5o7" path="res://icon.svg" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://k81yno04rfmq" path="res://daily_button.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b3e8m2b3migql" path="res://button_small.gd" id="3_7mycd"]
 [ext_resource type="Texture2D" uid="uid://byqigir6mpcg8" path="res://daily_button_fill.png" id="4_lquwl"]
+[ext_resource type="Gradient" uid="uid://b43okdb01y67n" path="res://confetti_gradient.tres" id="5_lquwl"]
 
 [sub_resource type="Gradient" id="Gradient_0xm2m"]
-colors = PackedColorArray(0.929715, 0.929715, 0.929715, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.929715, 0.929715, 0.929715, 1, 0.873298, 0.873298, 0.873298, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_h2yge"]
 
@@ -17,109 +18,219 @@ height = 320
 color_ramp = SubResource("Gradient_0xm2m")
 noise = SubResource("FastNoiseLite_h2yge")
 
-[node name="Control" type="Control"]
+[sub_resource type="Curve" id="Curve_lquwl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.852273, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lquwl"]
+radius = 392.8
+
+[node name="Control" type="Node"]
+script = ExtResource("1_1bvp3")
+
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_1bvp3")
+mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("NoiseTexture2D_1bvp3")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.2
-anchor_top = 0.2
-anchor_right = 0.8
+anchor_left = 0.1
+anchor_top = 0.65
+anchor_right = 0.9
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
+alignment = 2
 
-[node name="Node2D" type="Node2D" parent="MarginContainer/VBoxContainer"]
-position = Vector2(48.99, 0)
-
-[node name="DailyButton" type="TextureButton" parent="MarginContainer/VBoxContainer/Node2D"]
-custom_minimum_size = Vector2(150, 170)
-offset_right = 250.0
-offset_bottom = 170.0
-size_flags_vertical = 6
-texture_normal = ExtResource("1_h2yge")
-ignore_texture_size = true
-stretch_mode = 5
-script = ExtResource("2_0xm2m")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="MarginContainer/VBoxContainer/Node2D/DailyButton"]
-layer = 3
-
-[node name="Node2D" type="Node2D" parent="MarginContainer/VBoxContainer/Node2D/DailyButton/CanvasLayer"]
-
-[node name="Confetti" type="CPUParticles2D" parent="MarginContainer/VBoxContainer/Node2D/DailyButton/CanvasLayer/Node2D"]
-position = Vector2(550, 415)
-amount = 40
-direction = Vector2(0, -1)
-initial_velocity_min = 50.0
-initial_velocity_max = 200.0
-scale_amount_min = 10.0
-scale_amount_max = 20.0
-color = Color(0.580131, 0.0166626, 0.28353, 1)
-
-[node name="Fill" type="TextureRect" parent="MarginContainer/VBoxContainer/Node2D/DailyButton"]
-custom_minimum_size = Vector2(150, 170)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -85.0
-offset_right = 75.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(75, 85)
-texture = ExtResource("4_lquwl")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="StreakLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 41.4)
+[node name="StreakLabel" type="RichTextLabel" parent="UI/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.277528, 0.277528, 0.277528, 1)
 theme_override_font_sizes/bold_italics_font_size = 6
 theme_override_font_sizes/italics_font_size = 6
 theme_override_font_sizes/mono_font_size = 6
-theme_override_font_sizes/normal_font_size = 23
+theme_override_font_sizes/normal_font_size = 28
 theme_override_font_sizes/bold_font_size = 0
 text = "Streak: 6/40"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 100)
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_vertical = 6
-texture = ExtResource("1_ig7tw")
-expand_mode = 1
+size_flags_vertical = 3
+mouse_filter = 2
 
-[connection signal="button_down" from="MarginContainer/VBoxContainer/Node2D/DailyButton" to="." method="_on_daily_button_button_down"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/Node2D/DailyButton" to="." method="_on_daily_button_button_up"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button4" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_h2yge")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_7mycd")
+
+[node name="Fill" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 45)
+texture = ExtResource("4_lquwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button3" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_h2yge")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_7mycd")
+
+[node name="Fill" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 45)
+texture = ExtResource("4_lquwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button2" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_h2yge")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_7mycd")
+
+[node name="Fill" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 45)
+texture = ExtResource("4_lquwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button1" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_h2yge")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_7mycd")
+
+[node name="Fill" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 45)
+texture = ExtResource("4_lquwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button0" type="TextureButton" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_h2yge")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("3_7mycd")
+
+[node name="Fill" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 45)
+texture = ExtResource("4_lquwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gamelayer" type="Node2D" parent="."]
+
+[node name="DailyButton" type="Node2D" parent="Gamelayer"]
+position = Vector2(166, 182)
+scale = Vector2(0.28, 0.28)
+script = ExtResource("2_0xm2m")
+
+[node name="Circle" type="Sprite2D" parent="Gamelayer/DailyButton"]
+texture = ExtResource("1_h2yge")
+
+[node name="Filler" type="Sprite2D" parent="Gamelayer/DailyButton"]
+texture = ExtResource("4_lquwl")
+
+[node name="Confetti" type="CPUParticles2D" parent="Gamelayer/DailyButton"]
+emitting = false
+amount = 300
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.38
+lifetime_randomness = 0.42
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 1500.0
+initial_velocity_max = 4000.0
+angular_velocity_min = -101.82
+angular_velocity_max = 145.45
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_lquwl")
+color_initial_ramp = ExtResource("5_lquwl")
+
+[node name="ButtonArea" type="Area2D" parent="Gamelayer/DailyButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gamelayer/DailyButton/ButtonArea"]
+shape = SubResource("CircleShape2D_lquwl")
+
+[connection signal="input_event" from="Gamelayer/DailyButton/ButtonArea" to="." method="_on_button_area_input_event"]
+[connection signal="mouse_exited" from="Gamelayer/DailyButton/ButtonArea" to="." method="_on_button_area_mouse_exited"]

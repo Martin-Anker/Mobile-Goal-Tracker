@@ -10,18 +10,26 @@ config_version=5
 
 [application]
 
-config/name="MobileGoalTracker"
+config/name="dailyGoalTracker"
 run/main_scene="uid://co1kshvc7s143"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.753984, 0.753984, 0.753984, 1)
+boot_splash/image="uid://txpfbputgstm"
+config/icon="uid://droco80qs3lnm"
 
 [display]
 
 window/size/viewport_width=324
 window/size/viewport_height=576
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

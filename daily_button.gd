@@ -1,4 +1,7 @@
-extends TextureButton
+extends Node2D
 
-func _process(delta: float) -> void:
-	$CanvasLayer/Node2D/Confetti.position = global_position + size / 2
+func _ready():
+	var screen_size = get_viewport().get_visible_rect().size
+	
+	position = Vector2(screen_size.x * 0.5, screen_size.y * 0.3)
+	scale = Vector2.ONE * (screen_size.y * 0.3 / $Circle.texture.get_size().y)  # z.B. 20% der Höhe
