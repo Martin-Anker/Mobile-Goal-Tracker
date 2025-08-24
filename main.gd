@@ -33,6 +33,9 @@ func _ready() -> void:
 	
 	if load_last_days(1)[0]:
 		fix_button()
+	else:
+		save_today(false)
+		
 	
 	update_timeline()
 	set_streak_text()
@@ -238,6 +241,13 @@ func get_streak():
 		var idx = (data.size() - 1) - i  # 0 = frühester, n-1 = heute
 		if key in data and data[key]:
 			streak += 1
+			print("+1")
 		else:
-			return streak
+			if key == Time.get_datetime_string_from_system(false).substr(0, 10):
+				streak += 0
+				print("+0")
+			else:
+				print("ret 1")
+				return streak
+	print("ret 3")
 	return streak

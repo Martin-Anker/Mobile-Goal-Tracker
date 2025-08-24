@@ -21,7 +21,7 @@ config/icon="uid://droco80qs3lnm"
 
 window/size/viewport_width=324
 window/size/viewport_height=576
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
